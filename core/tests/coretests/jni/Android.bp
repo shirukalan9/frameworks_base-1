@@ -39,6 +39,7 @@ cc_test_library {
     stl: "libc++_static",
     cflags: [
         "-g0",
+        "-g0",
         "-Werror",
         "-Wall",
     ],
@@ -63,6 +64,7 @@ cc_test_library {
     header_libs: ["jni_headers"],
     stl: "libc++_static",
     cflags: [
+        "-g0",
         "-g0",
         "-Werror",
         "-Wall",
@@ -89,6 +91,7 @@ cc_test_library {
     stl: "libc++_static",
     cflags: [
         "-g0",
+        "-g0",
         "-Werror",
         "-Wall",
     ],
@@ -108,6 +111,7 @@ cc_test_library {
     header_libs: ["jni_headers"],
     stl: "libc++_static",
     cflags: [
+        "-g0",
         "-g0",
         "-Wall",
         "-Werror",

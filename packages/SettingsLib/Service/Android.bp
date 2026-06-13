@@ -13,7 +13,8 @@ android_library {
     ],
     sdk_version: "system_current",
     min_sdk_version: "23",
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
     flags_packages: [
         "aconfig_settingslib_flags",
     ],

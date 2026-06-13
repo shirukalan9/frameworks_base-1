@@ -31,6 +31,7 @@ cc_library_static {
 
     cflags: [
         "-g0",
+        "-g0",
         "-DANDROID",
         "-Wall",
         "-Werror",
@@ -56,6 +57,7 @@ cc_library_shared {
     ],
 
     cflags: [
+        "-g0",
         "-g0",
         "-Wall",
         "-Werror",

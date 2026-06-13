@@ -24,7 +24,8 @@ android_app {
     system_ext_specific: true,
     certificate: "platform",
     privileged: true,
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
     asset_dirs: ["customization/assets"],
     resource_dirs: ["screenshot/customization/res"],
     use_resource_processor: true,

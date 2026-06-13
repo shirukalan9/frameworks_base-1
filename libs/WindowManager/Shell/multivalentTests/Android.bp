@@ -91,7 +91,8 @@ android_test {
         "libdexmakerjvmtiagent",
         "libstaticjvmtiagent",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
     optimize: {
         enabled: false,
     },

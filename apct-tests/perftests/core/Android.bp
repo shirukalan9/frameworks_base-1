@@ -68,6 +68,7 @@ android_test {
 
     errorprone: {
         javacflags: [
+        "-g:none",
             "-Xep:ReturnValueIgnored:WARN",
             "-Xep:UnnecessaryStringBuilder:OFF",
         ],

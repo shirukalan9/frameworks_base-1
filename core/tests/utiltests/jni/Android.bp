@@ -33,5 +33,6 @@ cc_library_shared {
         "android_util_MemoryIntArrayTest.cpp",
     ],
     cflags: [
+        "-g0",
         "-g0","-Werror"],
 }

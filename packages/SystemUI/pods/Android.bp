@@ -31,6 +31,7 @@ java_defaults {
         warning_checks: ["MissingApacheLicenseDetector"],
     },
     kotlincflags: [
+        "-g0",
         "-Xexplicit-api=strict",
         "-Xjvm-default=all",
     ],
@@ -49,6 +50,7 @@ java_defaults {
         warning_checks: ["MissingApacheLicenseDetector"],
     },
     kotlincflags: [
+        "-g0",
         "-Xexplicit-api=strict",
         "-Xjvm-default=all",
     ],

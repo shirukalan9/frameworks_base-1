@@ -38,7 +38,8 @@ android_test {
         "platform-test-annotations",
     ],
     associates: ["SpaLib"],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
     sdk_version: "current",
     min_sdk_version: "31",
 }

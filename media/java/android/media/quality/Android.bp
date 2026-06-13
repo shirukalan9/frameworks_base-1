@@ -26,6 +26,7 @@ cc_library_shared {
     export_include_dirs: ["include"],
     cflags: [
         "-g0",
+        "-g0",
         "-Wno-unused-variable",
         "-Wunused-parameter",
     ],

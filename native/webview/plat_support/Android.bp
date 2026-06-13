@@ -77,5 +77,6 @@ cc_library_shared {
 
     // To remove warnings from skia header files
     cflags: [
+        "-g0",
         "-g0","-Wno-unused-parameter"],
 }

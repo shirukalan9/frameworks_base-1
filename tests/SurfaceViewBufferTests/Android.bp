@@ -66,6 +66,7 @@ cc_library_shared {
     stl: "libc++_static",
     cflags: [
         "-g0",
+        "-g0",
         "-Werror",
         "-Wall",
     ],

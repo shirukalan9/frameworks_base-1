@@ -44,5 +44,6 @@ android_test {
         "platform-parametric-runner-lib",
         "platform-screenshot-diff-core",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 }

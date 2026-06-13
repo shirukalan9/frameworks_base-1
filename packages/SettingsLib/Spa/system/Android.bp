@@ -25,7 +25,8 @@ android_library {
     static_libs: [
         "SpaLib",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
     sdk_version: "system_current",
     min_sdk_version: "33",
 }

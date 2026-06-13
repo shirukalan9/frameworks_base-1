@@ -16,7 +16,8 @@ android_library {
         "androidx.annotation_annotation",
         "androidx.fragment_fragment",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
     optimize: {
         proguard_flags_files: ["proguard.pgcfg"],
     },

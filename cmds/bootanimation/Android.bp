@@ -24,6 +24,7 @@ cc_defaults {
 
     cflags: [
         "-g0",
+        "-g0",
         "-DGL_GLEXT_PROTOTYPES",
         "-DEGL_EGLEXT_PROTOTYPES",
 
@@ -71,6 +72,7 @@ cc_binary {
     init_rc: ["bootanim.rc"],
 
     cflags: [
+        "-g0",
         "-g0",
         "-Wno-deprecated-declarations",
     ],

@@ -87,7 +87,8 @@ java_defaults {
     ],
 
     // Required for TestParameterInjector
-    javacflags: ["-parameters"],
+    javacflags: [
+        "-g:none","-parameters"],
 }
 
 // Utility files used by multiple tests

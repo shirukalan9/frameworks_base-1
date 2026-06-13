@@ -29,6 +29,7 @@ cc_library_shared {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wunused",
@@ -140,6 +141,7 @@ cc_fuzz {
     ],
     cflags: [
         "-g0",
+        "-g0",
         "-DPNG_MUTATOR_DEFINE_LIBFUZZER_CUSTOM_MUTATOR",
     ],
 }
@@ -167,6 +169,7 @@ cc_fuzz {
     },
     include_dirs: ["frameworks/av/services/mediaextractor"],
     cflags: [
+        "-g0",
         "-g0",
         "-DFUZZ_HEIF_FORMAT",
     ],

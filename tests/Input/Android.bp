@@ -20,6 +20,7 @@ android_test {
         "src/**/*.kt",
     ],
     kotlincflags: [
+        "-g0",
         "-Werror",
     ],
     asset_dirs: ["assets"],

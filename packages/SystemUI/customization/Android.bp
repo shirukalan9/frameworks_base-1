@@ -80,6 +80,7 @@ android_library {
     min_sdk_version: "current",
     plugins: ["dagger2-compiler"],
     kotlincflags: [
+        "-g0",
         "-Xjvm-default=all",
         "-P plugin:androidx.compose.compiler.plugins.kotlin:sourceInformation=true",
     ],

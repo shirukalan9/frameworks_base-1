@@ -23,6 +23,7 @@ cc_test_library {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Werror",
         "-Wno-error=deprecated-declarations",
     ],

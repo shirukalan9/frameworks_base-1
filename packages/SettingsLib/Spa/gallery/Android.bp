@@ -27,7 +27,8 @@ android_app {
         "SpaLib",
         "androidx.compose.runtime_runtime",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
     sdk_version: "current",
     min_sdk_version: "31",
 }

@@ -80,7 +80,8 @@ android_test {
         "libstaticjvmtiagent",
     ],
 
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 
     plugins: ["dagger2-compiler"],
 

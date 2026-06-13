@@ -33,6 +33,7 @@ java_library {
         "kotlin-stdlib-jdk7",
     ],
     kotlincflags: [
+        "-g0",
         "-Xjvm-default=all",
         "-Xno-call-assertions",
         "-Xno-param-assertions",

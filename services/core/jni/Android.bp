@@ -13,6 +13,7 @@ cc_library_static {
 
     cflags: [
         "-g0",
+        "-g0",
         "-O3",
         "-Wall",
         "-Werror",

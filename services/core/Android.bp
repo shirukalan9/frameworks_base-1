@@ -256,6 +256,7 @@ java_library_static {
     ],
     javac_shard_size: 50,
     javacflags: [
+        "-g:none",
         "-J--add-modules=jdk.compiler",
         "-J--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
         "-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED",

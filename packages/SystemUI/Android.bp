@@ -451,6 +451,7 @@ java_defaults {
         "keepanno-annotations",
     ],
     kotlincflags: [
+        "-g0",
         "-Xjvm-default=all",
         "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         "-P plugin:androidx.compose.compiler.plugins.kotlin:sourceInformation=true",
@@ -599,6 +600,7 @@ android_library {
         "vendor.lineage.powershare-V1-java",
     ],
     javacflags: [
+        "-g:none",
         "-Aroom.schemaLocation=frameworks/base/packages/SystemUI/schemas",
     ],
 }
@@ -624,6 +626,7 @@ android_library {
         "com.android.systemui.pods-impl-aosp-handheld",
     ],
     javacflags: [
+        "-g:none",
         "-Adagger.explicitBindingConflictsWithInject=ERROR",
         "-Adagger.strictMultibindingValidation=enabled",
         "-Adagger.useBindingGraphFix=ENABLED",
@@ -870,12 +873,14 @@ android_library {
         "keepanno-annotations",
     ],
     kotlincflags: [
+        "-g0",
         "-Xjvm-default=all",
         // TODO(b/352363800): Why do we need this?
         "-J-Xmx8192M",
         "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
     ],
     javacflags: [
+        "-g:none",
         "-Adagger.useBindingGraphFix=ENABLED",
     ],
 
@@ -922,7 +927,8 @@ android_app {
     certificate: "platform",
     privileged: true,
     resource_dirs: [],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
     optimize: {
         optimize: false,
         shrink_resources: false,
@@ -1127,7 +1133,8 @@ android_app {
     certificate: "platform",
     privileged: true,
 
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 
     dxflags: ["--multi-dex"],
     optimize: {

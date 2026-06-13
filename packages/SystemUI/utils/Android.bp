@@ -31,5 +31,6 @@ java_library {
         "kotlin-stdlib",
         "kotlinx_coroutines",
     ],
-    kotlincflags: ["-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"],
+    kotlincflags: [
+        "-g0","-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"],
 }

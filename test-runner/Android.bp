@@ -29,7 +29,8 @@ java_sdk_library {
     ],
 
     errorprone: {
-        javacflags: ["-Xep:DepAnn:ERROR"],
+        javacflags: [
+        "-g:none","-Xep:DepAnn:ERROR"],
     },
 
     impl_only_libs: [

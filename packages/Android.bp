@@ -27,6 +27,7 @@ java_defaults {
     errorprone: {
         extra_check_modules: ["error_prone_android_framework"],
         javacflags: [
+        "-g:none",
             // We're less worried about performance in app code
             "-Xep:AndroidFrameworkEfficientCollections:OFF",
             "-Xep:AndroidFrameworkEfficientParcelable:OFF",

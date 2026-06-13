@@ -56,6 +56,7 @@ cc_defaults {
 
     cflags: [
         "-g0",
+        "-g0",
         "-DEGL_EGLEXT_PROTOTYPES",
         "-DGL_GLEXT_PROTOTYPES",
         "-DATRACE_TAG=ATRACE_TAG_VIEW",
@@ -96,6 +97,7 @@ cc_defaults {
                 "frameworks/av/media/ndk/include",
             ],
             cflags: [
+        "-g0",
         "-g0",
                 "-Wno-unused-variable",
                 "-D__INTRODUCED_IN(n)=",
@@ -182,6 +184,7 @@ cc_defaults {
 cc_defaults {
     name: "hwui_bugreport_font_cache_usage",
     cflags: [
+        "-g0",
         "-g0","-DBUGREPORT_FONT_CACHE_USAGE"],
 }
 
@@ -189,6 +192,7 @@ cc_defaults {
     name: "hwui_compile_for_perf",
     // TODO: Non-arm?
     cflags: [
+        "-g0",
         "-g0",
         "-O3",
     ],
@@ -280,6 +284,7 @@ cc_defaults {
     name: "android_graphics_apex",
     cflags: [
         "-g0",
+        "-g0",
         "-Wno-unused-parameter",
         "-Wno-non-virtual-dtor",
         "-Wno-maybe-uninitialized",
@@ -339,6 +344,7 @@ cc_library_headers {
 cc_defaults {
     name: "android_graphics_jni",
     cflags: [
+        "-g0",
         "-g0",
         "-Wno-unused-parameter",
         "-Wno-non-virtual-dtor",
@@ -493,6 +499,7 @@ cc_defaults {
         },
         host: {
             cflags: [
+        "-g0",
         "-g0",
                 "-Wno-unused-const-variable",
                 "-Wno-unused-function",
@@ -700,6 +707,7 @@ cc_defaults {
 
             // Allow implicit fallthroughs in HardwareBitmapUploader.cpp until they are fixed.
             cflags: [
+        "-g0",
         "-g0","-Wno-implicit-fallthrough"],
         },
         host: {
@@ -721,6 +729,7 @@ cc_defaults {
             ],
 
             cflags: [
+        "-g0",
         "-g0",
                 "-DHWUI_NULL_GPU",
                 "-DNULL_GPU_MAX_TEXTURE_SIZE=4096",

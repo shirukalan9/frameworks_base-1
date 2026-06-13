@@ -43,6 +43,7 @@ cc_test {
     ],
     cflags: [
         "-g0",
+        "-g0",
         "-O0",
         "-g",
         "-Wall",

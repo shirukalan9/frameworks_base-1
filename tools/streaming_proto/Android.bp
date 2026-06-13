@@ -36,6 +36,7 @@ cc_defaults {
     ],
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
     ],
@@ -53,10 +54,12 @@ cc_library_host_static {
     target: {
         darwin: {
             cflags: [
+        "-g0",
         "-g0","-D_DARWIN_UNLIMITED_STREAMS"],
         },
     },
     cflags: [
+        "-g0",
         "-g0",
         "-Wno-format-y2k",
         "-DSTATIC_ANDROIDFW_FOR_TOOLS",

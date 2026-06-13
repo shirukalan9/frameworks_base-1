@@ -32,6 +32,7 @@ java_library_host {
     ],
 
     javacflags: [
+        "-g:none",
         // These exports are needed because this errorprone plugin access some private classes
         // of the java compiler.
         "--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",

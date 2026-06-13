@@ -18,6 +18,7 @@ java_library {
         "src/main/java/**/*.kt",
     ],
     javacflags: [
+        "-g:none",
         "-Aorg.robolectric.annotation.processing.shadowPackage=org.robolectric.shadows.androidx.fragment",
         "-Aorg.robolectric.annotation.processing.sdkCheckMode=ERROR",
         // Uncomment the below to debug annotation processors not firing.

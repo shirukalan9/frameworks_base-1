@@ -29,5 +29,6 @@ java_library_host {
         "auto_service_annotations",
         "lint_api",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 }

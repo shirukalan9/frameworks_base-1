@@ -41,6 +41,7 @@ cc_library_shared {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wunused",

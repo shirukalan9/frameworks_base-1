@@ -213,6 +213,7 @@ cc_defaults {
     name: "ravenwood_jni_defaults",
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-unused-parameter",

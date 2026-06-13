@@ -26,6 +26,7 @@ cc_defaults {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-missing-field-initializers",

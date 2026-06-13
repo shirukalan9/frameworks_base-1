@@ -40,6 +40,7 @@ cc_test_library {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Wextra",
         "-Werror",

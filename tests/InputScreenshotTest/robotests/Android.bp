@@ -38,7 +38,8 @@ android_app {
     certificate: "platform",
     privileged: true,
     resource_dirs: [],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 
     plugins: ["dagger2-compiler"],
     use_resource_processor: true,

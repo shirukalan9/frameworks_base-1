@@ -29,6 +29,7 @@ cc_test {
     srcs: ["block_device_writer.cpp"],
     cflags: [
         "-g0",
+        "-g0",
         "-D_FILE_OFFSET_BITS=64",
         "-Wall",
         "-Werror",

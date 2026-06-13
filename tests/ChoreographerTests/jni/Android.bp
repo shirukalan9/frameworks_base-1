@@ -20,6 +20,7 @@ cc_test_library {
     name: "libchoreographertests_jni",
     cflags: [
         "-g0",
+        "-g0",
         "-Werror",
         "-Wthread-safety",
     ],

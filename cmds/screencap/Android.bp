@@ -12,6 +12,7 @@ cc_defaults {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wunreachable-code",

@@ -20,6 +20,7 @@ cc_binary_host {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-mismatched-tags",
@@ -45,6 +46,7 @@ cc_binary_host {
     name: "pbkdf2gen",
 
     cflags: [
+        "-g0",
         "-g0",
         "-Wall",
         "-Werror",

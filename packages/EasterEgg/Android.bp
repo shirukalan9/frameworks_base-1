@@ -72,7 +72,8 @@ android_app {
 
     manifest: "AndroidManifest.xml",
 
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 }
 
 java_aconfig_library {

@@ -34,5 +34,6 @@ android_library {
         "androidx.annotation_annotation",
         "androidx.preference_preference",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 }

@@ -26,7 +26,8 @@ android_test {
 
     sdk_version: "16",
 
-    javacflags: ["-nowarn"],
+    javacflags: [
+        "-g:none","-nowarn"],
 
     min_sdk_version: "19",
 

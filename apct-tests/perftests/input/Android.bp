@@ -26,6 +26,7 @@ android_test {
     name: "InputPerfTests",
     srcs: ["src/**/*.kt"],
     kotlincflags: [
+        "-g0",
         "-Werror",
     ],
     static_libs: [

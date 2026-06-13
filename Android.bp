@@ -370,6 +370,7 @@ java_defaults {
     ],
     // Exports needed for staledataclass-annotation-processor, see b/139342589.
     javacflags: [
+        "-g:none",
         "-J--add-modules=jdk.compiler",
         "-J--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
         "-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED",
@@ -526,6 +527,7 @@ java_library {
     ],
     errorprone: {
         javacflags: [
+        "-g:none",
             "-Xep:AndroidFrameworkCompatChange:ERROR",
             "-Xep:AndroidFrameworkUid:ERROR",
         ],

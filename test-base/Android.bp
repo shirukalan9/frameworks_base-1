@@ -32,7 +32,8 @@ java_sdk_library {
     ],
 
     errorprone: {
-        javacflags: ["-Xep:DepAnn:ERROR"],
+        javacflags: [
+        "-g:none","-Xep:DepAnn:ERROR"],
     },
 
     hostdex: true,
@@ -75,7 +76,8 @@ java_library_static {
     ],
 
     errorprone: {
-        javacflags: ["-Xep:DepAnn:ERROR"],
+        javacflags: [
+        "-g:none","-Xep:DepAnn:ERROR"],
     },
 
     // Needs to be consistent with the repackaged version of this make target.

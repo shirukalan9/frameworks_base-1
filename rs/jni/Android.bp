@@ -48,6 +48,7 @@ cc_library_shared {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wno-unused-parameter",
         "-Wunused",
         "-Wunreachable-code",

@@ -36,6 +36,7 @@ cc_binary {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-missing-field-initializers",
@@ -80,6 +81,7 @@ cc_binary {
     product_variables: {
         debuggable: {
             cflags: [
+        "-g0",
         "-g0","-DALLOW_RESTRICTED_SECTIONS=1"],
         },
     },
@@ -91,6 +93,7 @@ cc_defaults {
     name: "incidentd_test_defaults",
 
     cflags: [
+        "-g0",
         "-g0",
         "-Werror",
         "-Wall",

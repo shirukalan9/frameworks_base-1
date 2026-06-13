@@ -37,6 +37,7 @@ cc_binary {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wextra",

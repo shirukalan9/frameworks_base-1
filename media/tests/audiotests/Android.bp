@@ -29,6 +29,7 @@ cc_test {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-error=deprecated-declarations",

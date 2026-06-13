@@ -33,6 +33,7 @@ cc_defaults {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
     ],
@@ -80,6 +81,7 @@ cc_library_host_static {
         "SplitSelector.cpp",
     ],
     cflags: [
+        "-g0",
         "-g0","-D_DARWIN_UNLIMITED_STREAMS"],
 
 }

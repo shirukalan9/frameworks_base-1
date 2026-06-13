@@ -560,6 +560,7 @@ cc_defaults {
     name: "incremental_default",
     cflags: [
         "-g0",
+        "-g0",
         "-DANDROID_BASE_UNIQUE_FD_DISABLE_IMPLICIT_CONVERSION",
         "-Wall",
         "-Werror",

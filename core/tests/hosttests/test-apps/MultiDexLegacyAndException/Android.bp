@@ -30,7 +30,8 @@ android_test_helper_app {
 
     sdk_version: "19",
 
-    javacflags: ["-nowarn"],
+    javacflags: [
+        "-g:none","-nowarn"],
 
     main_dex_rules: [":mainDexClassesRules"],
     dxflags: [

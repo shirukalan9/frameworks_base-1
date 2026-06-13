@@ -27,6 +27,7 @@ cc_library_shared {
 
     cflags: [
         "-g0",
+        "-g0",
         "-Wall",
         "-Werror",
     ],
@@ -68,6 +69,7 @@ cc_library_static {
     local_include_dirs: ["native"],
 
     cflags: [
+        "-g0",
         "-g0",
         "-Wall",
         "-Werror",

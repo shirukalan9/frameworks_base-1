@@ -52,7 +52,8 @@ android_library {
     ],
 
     manifest: "AndroidManifest.xml",
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 }
 
 android_library {
@@ -71,7 +72,8 @@ android_library {
     ],
 
     manifest: "AndroidManifest.xml",
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 
     // sdk_version must be specified, otherwise it compiles against private APIs.
     min_sdk_version: "33",

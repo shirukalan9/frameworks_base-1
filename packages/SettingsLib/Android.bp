@@ -84,7 +84,8 @@ android_library {
         "src/**/*.kt",
         "src/**/I*.aidl",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 }
 
 // defaults for lint option

@@ -32,6 +32,7 @@ cc_defaults_for_libandroid_runtime {
     host_supported: true,
     cflags: [
         "-g0",
+        "-g0",
         "-O3",
         "-Wno-cast-function-type-mismatch",
         "-Wno-unused-parameter",
@@ -65,6 +66,7 @@ cc_defaults_for_libandroid_runtime {
         eng: {
             cflags: [
         "-g0",
+        "-g0",
         "-O3","-DNO_RESET_STACK_PROTECTOR"],
         },
     },
@@ -72,6 +74,7 @@ cc_defaults_for_libandroid_runtime {
     soong_config_variables: {
         release_binder_death_recipient_weak_from_jni: {
             cflags: [
+        "-g0",
         "-g0",
         "-O3","-DBINDER_DEATH_RECIPIENT_WEAK_FROM_JNI"],
         },
@@ -443,6 +446,7 @@ cc_defaults_for_libandroid_runtime {
         host: {
             cflags: [
         "-g0",
+        "-g0",
         "-O3",
                 "-Wno-unused-const-variable",
                 "-Wno-unused-function",
@@ -617,6 +621,7 @@ cc_library_shared {
     export_include_dirs: ["."],
 
     cflags: [
+        "-g0",
         "-g0",
         "-O3",
         "-Wall",

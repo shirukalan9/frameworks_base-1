@@ -27,6 +27,7 @@ android_app {
     name: "MultiDeviceInput",
     srcs: ["**/*.kt"],
     kotlincflags: [
+        "-g0",
         "-Werror",
     ],
     sdk_version: "current",

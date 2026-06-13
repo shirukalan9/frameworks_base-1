@@ -44,6 +44,7 @@ android_library {
     ],
 
     kotlincflags: [
+        "-g0",
         "-Xjvm-default=all",
         "-P plugin:androidx.compose.compiler.plugins.kotlin:sourceInformation=true",
     ],

@@ -23,6 +23,7 @@ java_plugin {
         "codegen-version-info",
     ],
     javacflags: [
+        "-g:none",
         "--add-modules=jdk.compiler",
         "--add-exports jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
         "--add-exports jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED",

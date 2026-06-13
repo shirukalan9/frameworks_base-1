@@ -32,5 +32,6 @@ java_library {
     defaults: [
         "SystemUI_pod_defaults_api",
     ],
-    kotlincflags: ["-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"],
+    kotlincflags: [
+        "-g0","-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"],
 }

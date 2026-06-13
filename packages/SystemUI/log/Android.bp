@@ -52,5 +52,6 @@ java_library {
         "SystemUICommon",
         "SystemUILogCoreLib",
     ],
-    kotlincflags: ["-Xjvm-default=all"],
+    kotlincflags: [
+        "-g0","-Xjvm-default=all"],
 }
