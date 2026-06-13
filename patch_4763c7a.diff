@@ -1,0 +1,36 @@
+commit 4763c7a191e680b0bcf90d6cbbc94d8abe7fce7f
+Author: Pranav Vashi <neobuddy89@gmail.com>
+Date:   Sun Sep 28 21:16:53 2025 +0530
+
+    services: Reduce memory release interval guard
+    
+    * Reduced from 10 min to 5 min. This functionality provides better UX.
+    * Add log.
+    
+    Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+    Signed-off-by: Ghosuto <clash.raja10@gmail.com>
+
+diff --git a/services/core/java/com/android/server/policy/PhoneWindowManager.java b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+index 69c3cb8da2f6..0904455dd294 100644
+--- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
++++ b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+@@ -430,7 +430,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+     private static final String ACTION_TORCH_OFF =
+             "com.android.server.policy.PhoneWindowManager.ACTION_TORCH_OFF";
+ 
+-    private static final long MEMORY_RELEASE_INTERVAL_MS = 10 * 60 * 1000L; // 10 minutes
++    private static final long MEMORY_RELEASE_INTERVAL_MS = 5 * 60 * 1000L; // 5 minutes
+     private long lastMemoryReleaseTime = 0L;
+ 
+     private static final long GC_INTERVAL_MS = 10 * 60 * 1000L; // 10 minutes
+@@ -8201,8 +8201,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+         long currentTime = System.currentTimeMillis();
+         if (lastMemoryReleaseTime == 0L || currentTime - lastMemoryReleaseTime > MEMORY_RELEASE_INTERVAL_MS) {
+             try {
+-                ActivityManager.getService().releaseMemory(900, 20, false, false);
++                mActivityManagerService.releaseMemory(900, 25, false, false);
+                 lastMemoryReleaseTime = currentTime;
++                Slog.d(TAG, "Performing screen-on memory reclaim.");
+             } catch (RemoteException e) {
+             }
+         }

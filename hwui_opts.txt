@@ -1,0 +1,78 @@
+baf688c49129: core: pm: Wipe package cache on upgrade
+bda319897ef0: libhwui: compile for performance
+87fb9713dcfc: libhwui: enable O3 when compiling for perf
+8db56bfb9f10: libhwui: remove deprecated perf flags
+29738535a0a2: hwui: Compile without no-omit-frame-pointer
+8985c38c785e: QS Header: Fix memory leaks
+cc36059b3b2a: Toast: Perform text scrolling for long toast texts
+e7f325798da5: SystemUI: Reduce keyguard indication text padding
+e15fe677f268: Add support for UDFPS icons
+9ba3b79e4ed6: BluetoothControllerImpl: Optimize connected battery level scanning
+8a5d957751d0: ThemedResourceCache: Remove lambda and optimize map pruning iteration
+20041afbfdce: [vibrator] rate-limiting vibrator calls for performance
+feec248a6f7d: [PERF] reduce input history ring buffer size
+eab9551c4474: [PERF] disable lifecycle parallelization on user start
+2f5673cb8b9a: SystemUI: SliderHaptics: Cache composed effects for primitives
+926cf1a9d89e: core: Make CHARGE_OPTIMIZATION_MODE readable for pixel agent
+3961edf23f3c: Pulse: Improve background design for RetroVUStyleRenderer
+6be778f3af6b: Pulse: Fix length mismatch crash in MinimalStyleRenderer
+9c2c2136cdfc: Pulse: Add 3 new pulse style
+919468f0d374: Pulse: Add fading block renderer
+281506bf059d: SystemUI: Add pulse visualizer
+b6f2d338272b: Pulse: Invalidate cache on user change
+b97fede69b5f: Pulse: Add sparkle pulse renderer style
+4383b46d40f1: Pulse: Add matrix renderer style
+126733a966f4: FaceUnlockImageView: Prevent statusBarStateController memory leak
+599e69f90e8d: NSSLC: Prevent possible memory leak
+6dcec68760bc: services: Disallow max cached processes above 128
+cd6c68854955: CUR_MAX_CACHED_PROCESSES is not greater than the maximum value allowed
+7a2706bb9e80: services: optimize memory on device wake
+660e5652e1d9: CachedAppOptimizer: Fix persistent compact skipped
+555455914139: CachedAppOptimizer: Set thread group to background
+02d480d17be1: services: Reduce grace window to kill cache after user unlock
+4763c7a191e6: services: Reduce memory release interval guard
+f9755e392eed: ActivityManagerService: Perform system compaction with GC
+c4c37cc29602: Optimize the DateTimeView logic time consumption when updating the Ui main thread time
+5e0765b78116: aapt: Speed up the style pruning
+3aa3bec9a434: Minor code optimization for FileObserver.
+ccd7e157a9ee: SystemUI: Fix nowplaying memory leaks and performance issues
+32830626fba8: SystemUI: Reduce now playing text max width
+9164273ee6f5: WallpaperUtils: Switch to PNG compression for faster loading
+02c7b266c8ee: SystemUI: Optimize wallpaper rendering
+8506ba2ba130: SystemUI: Add network speed indicator
+067841125343: SystemUI: Reduce expand qs clock size
+47557a29157f: libs: intercepting hwui renderer property read
+f6be9d70adf0: SettingsLib: Allow Skia Vulkan to be used as HW renderer
+12b861eadc03: Core: Add developer setting to set the default GPU renderer.
+d8420dafbcf8: SystemUI: Add custom color, height control, and ambient mode support in pulse
+c3fb669990bc: fwb: stop performance hint spam
+0026b2b89f3d: core: Preventing memory leaks from bloating os memory that leads to OOM
+ae643254a75b: AbsListView: Improve scrolling cache
+41f6f7bf85ef: SystemUI: Reduce default system blur
+a902fe54f17c: SystemUI: Introduce cutout progress ring [1/2]
+39a0067ec4b4: SystemUI: Reduce media metadata bitmap size
+07a00dd89fb7: SystemUI: Optimize wallpaper effects
+58a748a91b4d: Optimize AbsListView to reduce click operation latency
+a653a89fc023: Avoid memory leak of activity in ExitTransitionCoordinator
+8e43d63721b1: SystemUI: Fix ringer tile rendering for vibrator support and DND state
+fa7c64a4b768: display: Render screen-off fade animation in linear sRGB space
+0a343c51c3a9: SystemUI: Further optimize rendering for wallpaper effects
+7ba07d872b86: SystemUI: Reducing qs compose rendering overhead during scroll
+0788628e4ee1: SystemUI: Adding essential notifications lite
+4fe5b7e4516c: SystemUI: Use reified generic to optimize filterIsInstance performance
+eb5e103e1df2: fix StrictMode BackgroundActivityLaunchCallback leak
+5545b9b62738: SystemUI: Reduce qs widget height
+950dda071bd8: SystemUI: DynamicBar: Align media seekbar timestamps inline with progress bar
+79562a29f9ea: SystemUI: Fix pulse rendering behind UDFPS and lockscreen affordances
+b7b1b0fb5257: SystemUI: Cache immutable sysprop and optimize resolver lookup
+3b526bfc5ab2: SystemUI: Add particle and waveform renderer pulse styles
+26b6e6eec8cf: core: cache spoof settings via ContentObserver, avoid hot-path IPC reads
+21d3957f9f0a: services: Optimizing wms prop | settings reads
+77e663ef96ef: SystemUI: shade perf improvements
+c84c3c45a89d: SystemUI: Make splitshade transition faster
+d81b6da65ff7: SystemUI: Refactor clock styles for perf
+62217d1bd18e: SystemUI: Refactor Aod style for perf
+efc3db81a612: core: only treat stretches as moves
+410d19db1a95: [SQUASH] fwb: Silence some log spams
+4722a513f2c2: Quick fix for WCLS security vulnerability.
+d2ef652e4fe2: SystemUI: Reduce some clocks bottom margin

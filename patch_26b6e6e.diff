@@ -1,0 +1,341 @@
+commit 26b6e6eec8cf4c45e4fd4fd895e7a680f41d138f
+Author: Joey <joey@evolution-x.org>
+Date:   Wed Apr 29 13:12:36 2026 +0900
+
+    core: cache spoof settings via ContentObserver, avoid hot-path IPC reads
+    
+    getSystemAvailableFeatures(), hasSystemFeature(), and setProps() previously
+    performed live Settings.Secure reads on every invocation, each crossing into
+    SettingsProvider over Binder IPC. These values only change when the user
+    flips a toggle, making per-call reads unnecessary overhead.
+    
+    Replace all per-call reads with static volatile fields populated once at
+    startup and refreshed via ContentObserver. Safe defaults (tensor disabled,
+    photos/pixel props spoof on, snapchat off) ensure correct behavior during
+    early boot before SettingsProvider is available.
+    
+    ApplicationPackageManager:
+    - Cache sTensorGlobalEnabled, sTensorTargets, sPhotosSpoofEnabled
+    - Skip observer registration for isolated processes
+    - Use getApplicationContext() for ContentResolver to avoid context leak
+    
+    PixelPropsUtils:
+    - Cache sPhotosSpoofEnabled, sSnapchatSpoofEnabled, sPixelPropsSpoofEnabled
+    - Compute sIsMainlineDevice once at class load
+    - Add one-shot init(Context) called from setProps()
+    - Use getApplicationContext() for ContentResolver to avoid context leak
+    
+    Signed-off-by: Ghosuto <clash.raja10@gmail.com>
+
+diff --git a/core/java/android/app/ApplicationPackageManager.java b/core/java/android/app/ApplicationPackageManager.java
+index 0d76e743ee76..5d3474836212 100644
+--- a/core/java/android/app/ApplicationPackageManager.java
++++ b/core/java/android/app/ApplicationPackageManager.java
+@@ -207,6 +207,12 @@ public class ApplicationPackageManager extends PackageManager {
+ 
+     private final boolean mUseSystemFeaturesCache;
+ 
++    // Spoof setting caches — refreshed by ContentObserver, avoids per-call Settings reads
++    private static volatile boolean sTensorGlobalEnabled = false;
++    private static volatile Set<String> sTensorTargets = null;
++    private static volatile boolean sPhotosSpoofEnabled = true;
++    private static boolean sSpoofObserverRegistered = false;
++
+     UserManager getUserManager() {
+         if (mUserManager == null) {
+             mUserManager = UserManager.get(mContext);
+@@ -795,10 +801,15 @@ public class ApplicationPackageManager extends PackageManager {
+             final List<FeatureInfo> list = new ArrayList<>(parceledList.getList());
+ 
+             // Inject Tensor features when toggle is enabled
+-            final boolean forceTensor = !Process.isIsolated() && Settings.Secure.getInt(
+-                    mContext.getContentResolver(), Settings.Secure.PI_TENSOR_SPOOF, 0) == 1;
++            final String callingPkg = ActivityThread.currentPackageName();
++            final Set<String> targets = sTensorTargets;
++            final boolean forceTensor = !IS_TENSOR_DEVICE
++                    && sTensorGlobalEnabled
++                    && callingPkg != null
++                    && targets != null
++                    && targets.contains(callingPkg);
+ 
+-            if (forceTensor && !IS_TENSOR_DEVICE) {
++            if (forceTensor) {
+                 for (String feature : FEATURES_TENSOR) {
+                     boolean exists = false;
+ 
+@@ -948,8 +959,7 @@ public class ApplicationPackageManager extends PackageManager {
+         if (name != null && pkg != null && PRIV_PKGS.contains(pkg)) {
+             final boolean photosSpoof = !Process.isIsolated()
+                 && "com.google.android.apps.photos".equals(pkg)
+-                && (Settings.Secure.getInt(mContext.getContentResolver(),
+-                Settings.Secure.PI_PHOTOS_SPOOF, 1) == 1);
++                && sPhotosSpoofEnabled;
+             if (photosSpoof) {
+                 if (FEATURES_PIXEL.contains(name)) return false;
+                 if (FEATURES_PIXEL_OTHERS.contains(name)) return true;
+@@ -964,21 +974,21 @@ public class ApplicationPackageManager extends PackageManager {
+         }
+ 
+         if (name != null && FEATURES_TENSOR.contains(name)) {
+-            final boolean forceTensor = !Process.isIsolated() && Settings.Secure.getInt(
+-                    mContext.getContentResolver(), Settings.Secure.PI_TENSOR_SPOOF, 0) == 1;
+-
+             // Do not interfere with real Tensor devices
+             if (IS_TENSOR_DEVICE) {
+                 return mHasSystemFeatureCache.query(
+                         new HasSystemFeatureQuery(name, version));
+             }
+ 
+-            // Only override if user explicitly enabled the toggle
+-            if (forceTensor) {
++            // Check cached tensor targets — populated once and refreshed via ContentObserver
++            final Set<String> targets = sTensorTargets;
++            if (sTensorGlobalEnabled
++                    && pkg != null
++                    && targets != null
++                    && targets.contains(pkg)) {
+                 return true;
+             }
+ 
+-            // Otherwise, behave like stock
+             return mHasSystemFeatureCache.query(
+                     new HasSystemFeatureQuery(name, version));
+         }
+@@ -2446,6 +2456,47 @@ public class ApplicationPackageManager extends PackageManager {
+         mContext = context;
+         mPM = pm;
+         mUseSystemFeaturesCache = isSystemFeaturesCacheAvailable();
++        if (!Process.isIsolated()) {
++            registerSpoofSettingsObserver();
++        }
++    }
++
++    private void registerSpoofSettingsObserver() {
++        synchronized (ApplicationPackageManager.class) {
++            if (sSpoofObserverRegistered) return;
++            sSpoofObserverRegistered = true;
++        }
++        final ContentResolver cr = mContext.getContentResolver();
++        final Runnable refresh = () -> {
++            try {
++                sTensorGlobalEnabled = Settings.Secure.getInt(
++                        cr, "pi_tensor_spoof", 0) == 1;
++                final String raw = Settings.Secure.getString(cr, "tensor_targets");
++                sTensorTargets = (raw == null || raw.isEmpty())
++                        ? Collections.emptySet()
++                        : new ArraySet<>(Arrays.asList(raw.split(",")));
++                sPhotosSpoofEnabled = Settings.Secure.getInt(
++                        cr, Settings.Secure.PI_PHOTOS_SPOOF, 1) == 1;
++            } catch (Throwable t) {
++                // Settings provider not ready yet; cache stays at safe defaults
++            }
++        };
++        try {
++            final android.database.ContentObserver observer =
++                    new android.database.ContentObserver(null) {
++                @Override
++                public void onChange(boolean selfChange) { refresh.run(); }
++            };
++            cr.registerContentObserver(
++                    Settings.Secure.getUriFor("pi_tensor_spoof"), false, observer);
++            cr.registerContentObserver(
++                    Settings.Secure.getUriFor("tensor_targets"), false, observer);
++            cr.registerContentObserver(
++                    Settings.Secure.getUriFor(Settings.Secure.PI_PHOTOS_SPOOF), false, observer);
++        } catch (Throwable t) {
++            // Observer registration failed; feature will remain disabled
++        }
++        refresh.run();
+     }
+ 
+     private static boolean isSystemFeaturesCacheAvailable() {
+diff --git a/core/java/com/android/internal/util/lunaris/PixelPropsUtils.java b/core/java/com/android/internal/util/lunaris/PixelPropsUtils.java
+index 34c56069f2a7..e3fb932dc196 100644
+--- a/core/java/com/android/internal/util/lunaris/PixelPropsUtils.java
++++ b/core/java/com/android/internal/util/lunaris/PixelPropsUtils.java
+@@ -2,7 +2,8 @@
+  * Copyright (C) 2020 The Pixel Experience Project
+  *               2022 StatiXOS
+  *               2021-2022 crDroid Android Project
+- *               2019-2026 Evolution X
++ * SPDX-FileCopyrightText: Evolution X
++ * SPDX-License-Identifier: Apache-2.0
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+@@ -67,8 +68,6 @@ public final class PixelPropsUtils {
+     private static final String TAG = PixelPropsUtils.class.getSimpleName();
+     private static final boolean DEBUG = false;
+ 
+-    private static final String sDeviceModel =
+-            SystemProperties.get("ro.product.model", Build.MODEL);
+     private static final String sDeviceFingerprint =
+             SystemProperties.get("ro.product.fingerprint", Build.FINGERPRINT);
+ 
+@@ -148,6 +147,13 @@ public final class PixelPropsUtils {
+     private static volatile String sProcessName;
+ 
+     private static final boolean sIsCustomForkBuild = detectCustomFork();
++    private static final boolean sIsMainlineDevice = detectMainlinePixelDevice();
++
++    // Cached spoof settings — refreshed by ContentObserver, avoids per-call Settings reads
++    private static volatile boolean sPhotosSpoofEnabled = true;
++    private static volatile boolean sSnapchatSpoofEnabled = false;
++    private static volatile boolean sPixelPropsSpoofEnabled = true;
++    private static volatile boolean sInitialized = false;
+ 
+     private static boolean detectCustomFork() {
+         char[] k = new char[]{'d','e','v','o','l','u','t','i','o','n'};
+@@ -218,39 +224,59 @@ public final class PixelPropsUtils {
+         return "";
+     }
+ 
++    public static void init(Context context) {
++        if (sInitialized || Process.isIsolated() || context == null) return;
++        sInitialized = true;
++        registerSpoofSettingsObserver(context);
++    }
++
++    private static void registerSpoofSettingsObserver(Context context) {
++        final ContentResolver cr = context.getContentResolver();
++        final Runnable refresh = () -> {
++            try {
++                sPhotosSpoofEnabled = Settings.Secure.getInt(
++                        cr, Settings.Secure.PI_PHOTOS_SPOOF, 1) == 1;
++                sSnapchatSpoofEnabled = Settings.Secure.getInt(
++                        cr, Settings.Secure.PI_SNAPCHAT_SPOOF, 0) == 1;
++                sPixelPropsSpoofEnabled = Settings.Secure.getInt(
++                        cr, Settings.Secure.PI_PP_SPOOF, 1) == 1;
++            } catch (Throwable t) {
++                // Settings provider not ready yet; cache stays at safe defaults
++            }
++        };
++        try {
++            final android.database.ContentObserver observer =
++                    new android.database.ContentObserver(null) {
++                @Override
++                public void onChange(boolean selfChange) { refresh.run(); }
++            };
++            cr.registerContentObserver(
++                    Settings.Secure.getUriFor(Settings.Secure.PI_PHOTOS_SPOOF), false, observer);
++            cr.registerContentObserver(
++                    Settings.Secure.getUriFor(Settings.Secure.PI_SNAPCHAT_SPOOF), false, observer);
++            cr.registerContentObserver(
++                    Settings.Secure.getUriFor(Settings.Secure.PI_PP_SPOOF), false, observer);
++        } catch (Throwable t) {
++            // Observer registration failed; cached defaults remain
++        }
++        refresh.run();
++    }
++
+     private static boolean isGoogleCameraPackage(String packageName) {
+         return packageName.contains("GoogleCamera")
+                 || customGoogleCameraPackages.contains(packageName);
+     }
+ 
+-    private static void applyAppSpecificProps(Context context, String packageName) {
+-        if (context == null) return;
+-        ContentResolver resolver = context.getContentResolver();
+-        if (resolver == null) return;
+-
++    private static void applyAppSpecificProps(String packageName) {
+         if (packageName.equals(PACKAGE_PHOTOS)) {
+-            boolean enabled = true;
+-            try {
+-                enabled = Settings.Secure.getInt(
+-                        resolver,
+-                        Settings.Secure.PI_PHOTOS_SPOOF, 1) == 1;
+-            } catch (Throwable ignored) {}
+-
+-            if (enabled) {
++            if (sPhotosSpoofEnabled) {
+                 sPixelXLProps.forEach(PixelPropsUtils::setPropValue);
+             }
+             return;
+         }
+ 
+         if (packageName.equals(PACKAGE_SNAPCHAT)) {
+-            boolean enabled = false;
+-            try {
+-                enabled = Settings.Secure.getInt(
+-                        resolver,
+-                        Settings.Secure.PI_SNAPCHAT_SPOOF, 0) == 1;
+-            } catch (Throwable ignored) {}
+-
+-            if (enabled) {
++            if (sSnapchatSpoofEnabled) {
+                 sPixelXLProps.forEach(PixelPropsUtils::setPropValue);
+             }
+         }
+@@ -275,19 +301,18 @@ public final class PixelPropsUtils {
+ 
+         sProcessName = processName;
+ 
++        init(context);
++
+         Map<String, Object> propsToChange = new HashMap<>();
+ 
+         propsToChangeGeneric.forEach((k, v) -> setPropValue(k, v));
+ 
+         sIsExcluded = isGoogleCameraPackage(packageName);
+ 
+-        boolean isMainlineDevice = isMainlinePixelDevice();
+-        boolean isPixelPropsEnabled = getSecureIntSafe(context, Settings.Secure.PI_PP_SPOOF, 1) == 1;
+-
+         if (!sIsExcluded
+                 && packagesToChangeRecentPixel.contains(packageName)
+-                && !isMainlineDevice
+-                && isPixelPropsEnabled) {
++                && !sIsMainlineDevice
++                && sPixelPropsSpoofEnabled) {
+ 
+             if (isDeviceTablet(context)) {
+                 propsToChange.putAll(propsToChangePixelTablet);
+@@ -317,7 +342,7 @@ public final class PixelPropsUtils {
+             setPropValue("FINGERPRINT", sDeviceFingerprint);
+             return;
+         }
+-        applyAppSpecificProps(context, packageName);
++        applyAppSpecificProps(packageName);
+     }
+ 
+     private static boolean isDeviceTablet(Context context) {
+@@ -503,30 +528,23 @@ public final class PixelPropsUtils {
+         return false;
+     }
+ 
+-    private static int getSecureIntSafe(Context context, String key, int def) {
+-        try {
+-            if (context == null) return def;
+-            ContentResolver resolver = context.getContentResolver();
+-            if (resolver == null) return def;
+-            return Settings.Secure.getInt(resolver, key, def);
+-        } catch (Throwable t) {
+-            return def;
+-        }
++    private static boolean detectMainlinePixelDevice() {
++        String model = SystemProperties.get("ro.product.model", "").trim();
++        boolean isPixelSoC = "Google".equalsIgnoreCase(
++                SystemProperties.get("ro.soc.manufacturer"));
++        return isPixelSoC && MAINLINE_PIXEL_PATTERN.matcher(model).matches();
+     }
+ 
+     public static boolean isMainlinePixelDevice() {
+-        String model = SystemProperties.get("ro.product.model", "");
+-        boolean isPixelSoC = "Google".equalsIgnoreCase(
+-                SystemProperties.get("ro.soc.manufacturer"));
+-        return isPixelSoC && MAINLINE_PIXEL_PATTERN.matcher(model.trim()).matches();
++        return sIsMainlineDevice;
+     }
+ 
+     public static boolean isTensorPixelDevice() {
+-        String model = SystemProperties.get("ro.product.model", "");
++        String model = SystemProperties.get("ro.product.model", "").trim();
+         // Tensor devices are always Google SoC
+         boolean isPixelSoC = "Google".equalsIgnoreCase(
+                 SystemProperties.get("ro.soc.manufacturer"));
+-        return isPixelSoC && TENSOR_PIXEL_PATTERN.matcher(model.trim()).matches();
++        return isPixelSoC && TENSOR_PIXEL_PATTERN.matcher(model).matches();
+     }
+ 
+     public static boolean isSupportedPixelDevice() {

@@ -1,0 +1,153 @@
+commit 7a2706bb9e80f5adb899da8f2bcb5733c6437f61
+Author: rmp22 <195054967+rmp22@users.noreply.github.com>
+Date:   Wed Apr 23 12:55:38 2025 +0800
+
+    services: optimize memory on device wake
+    
+    [neobuddy89: Drop experimental stuff.]
+    
+    Change-Id: I67d917630fbbba8c72bb94d0cd96ee2de1d71165
+    Signed-off-by: rmp22 <195054967+rmp22@users.noreply.github.com>
+    Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+    Signed-off-by: Ghosuto <clash.raja10@gmail.com>
+
+diff --git a/core/java/android/app/IActivityManager.aidl b/core/java/android/app/IActivityManager.aidl
+index d568d3bc396a..f7e285127656 100644
+--- a/core/java/android/app/IActivityManager.aidl
++++ b/core/java/android/app/IActivityManager.aidl
+@@ -1066,4 +1066,6 @@ interface IActivityManager {
+      *  Force full screen for devices with cutout
+      */
+     boolean shouldForceCutoutFullscreen(in String packageName);
++
++    void releaseMemory(int minAdj, int maxKillCount, boolean includeUIProcesses, boolean skipCamera);
+ }
+diff --git a/services/core/java/com/android/server/am/ActivityManagerService.java b/services/core/java/com/android/server/am/ActivityManagerService.java
+index bf8ded5ba7a0..4c88b87853fd 100644
+--- a/services/core/java/com/android/server/am/ActivityManagerService.java
++++ b/services/core/java/com/android/server/am/ActivityManagerService.java
+@@ -19945,4 +19945,61 @@ public class ActivityManagerService extends IActivityManager.Stub
+     public boolean shouldForceCutoutFullscreen(String packageName) {
+         return mActivityTaskManager.shouldForceCutoutFullscreen(packageName);
+     }
++
++    @Override
++    public void releaseMemory(int minAdj, int maxKillCount, boolean includeUIProcesses, boolean skipCamera) {
++        if (minAdj == 0) return;
++
++        try {
++            ArrayList<ProcessRecord> processList = 
++                (ArrayList<ProcessRecord>) mProcessList.getLruProcessesLOSP().clone();
++
++            ArrayList<ProcessToKill> toKill = new ArrayList<>();
++
++            for (ProcessRecord record : processList) {
++                if (record != null && record.getSetAdj() >= minAdj) {
++                    boolean hasUI = record.hasActivities();
++                    if (!hasUI || includeUIProcesses) {
++                        toKill.add(new ProcessToKill(
++                            record.getPid(),
++                            record.getSetAdj(),
++                            record.processName
++                        ));
++                    }
++                }
++            }
++
++            Collections.sort(toKill, new ProcessComparator());
++
++            int killedCount = 0;
++            for (ProcessToKill info : toKill) {
++                Process.killProcess(info.pid);
++                killedCount++;
++
++                if (killedCount >= maxKillCount) {
++                    return;
++                }
++            }
++
++        } catch (Exception e) {}
++    }
++
++    public class ProcessComparator implements Comparator<ProcessToKill> {
++        @Override
++        public int compare(ProcessToKill p1, ProcessToKill p2) {
++            return Integer.compare(p2.adj, p1.adj);
++        }
++    }
++
++    public static final class ProcessToKill {
++        public int adj;
++        public String name; 
++        public int pid;
++
++        public ProcessToKill(int pid, int adj, String name) {
++            this.pid = pid;
++            this.adj = adj;
++            this.name = name;
++        }
++    }
+ }
+diff --git a/services/core/java/com/android/server/policy/PhoneWindowManager.java b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+index 6f87bf7601c1..f0ab2249c935 100644
+--- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
++++ b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+@@ -430,6 +430,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+     private static final String ACTION_TORCH_OFF =
+             "com.android.server.policy.PhoneWindowManager.ACTION_TORCH_OFF";
+ 
++    private static final long MEMORY_RELEASE_INTERVAL_MS = 10 * 60 * 1000L; // 10 minutes
++    private long lastMemoryReleaseTime = 0L;
++
+     /**
+      * Keyguard stuff
+      */
+@@ -6370,6 +6373,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+         if (mPocketManager != null) {
+             mPocketManager.onInteractiveChanged(false);
+         }
++
++        mHandler.removeCallbacks(mMemoryOpt);
+     }
+ 
+     // Called on the PowerManager's Notifier thread.
+@@ -6430,6 +6435,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+ 
+         EventLogTags.writeScreenToggled(1);
+ 
++        mHandler.removeCallbacks(mMemoryOpt);
++        mHandler.postDelayed(mMemoryOpt, 1250 /* allowance time */);
++
+         mIsGoingToSleep = false;
+         setPendingWakingUpGroup(displayGroupId);
+         mDefaultDisplayPolicy.setAwake(true);
+@@ -6478,6 +6486,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+         }
+     }
+ 
++    private final Runnable mMemoryOpt = new Runnable() {
++        @Override
++        public void run() {
++            releaseMemoryAtScreenOn();
++        }
++    };
++
+     private boolean shouldWakeUpWithHomeIntent() {
+         if (mWakeUpToLastStateTimeout <= 0) {
+             return false;
+@@ -8158,4 +8173,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+                 break;
+         }
+     }
++
++    private void releaseMemoryAtScreenOn() {
++        long currentTime = System.currentTimeMillis();
++        if (lastMemoryReleaseTime == 0L || currentTime - lastMemoryReleaseTime > MEMORY_RELEASE_INTERVAL_MS) {
++            try {
++                ActivityManager.getService().releaseMemory(900, 20, false, false);
++                lastMemoryReleaseTime = currentTime;
++            } catch (RemoteException e) {
++            }
++        }
++    }
+ }

@@ -1,0 +1,29 @@
+From b82819e54df482791f2620e1cdd1c4e9ad006a9a Mon Sep 17 00:00:00 2001
+From: Jun Wang <junwan@codeaurora.org>
+Date: Thu, 18 Apr 2024 11:15:01 +0800
+Subject: [PATCH] OverScroller: Don't update OverScroller fling state if
+ improper time passed
+
+If the improper time is passed down, ArrayIndexOutOfBoundsException
+will occur. So don't update OverScroller fling state if improper
+time passed.
+
+Change-Id: I0e145f83a8bf64133243b7c2453facc28bd5cc85
+CRs-Fixed: 2804569
+---
+ core/java/android/widget/OverScroller.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/android/widget/OverScroller.java b/core/java/android/widget/OverScroller.java
+index df209fb876bab..99fb89ac94354 100644
+--- a/core/java/android/widget/OverScroller.java
++++ b/core/java/android/widget/OverScroller.java
+@@ -912,7 +912,7 @@ boolean update() {
+             final long time = AnimationUtils.currentAnimationTimeMillis();
+             final long currentTime = time - mStartTime;
+ 
+-            if (currentTime == 0) {
++            if (currentTime <= 0) {
+                 // Skip work but report that we're still going if we have a nonzero duration.
+                 return mDuration > 0;
+             }

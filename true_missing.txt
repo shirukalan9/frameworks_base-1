@@ -1,0 +1,39 @@
+MISSING: 299aa25d5817 wm: don't disable rot hint on low_ram
+MISSING: 20590ca55ca6 fixup! Implement click to take partial screenshot [1/3]
+MISSING: ab7e823728b1 DO NOT MERGE: Enforce suspend restrictions in startOp and noteOp paths
+MISSING: 75d3a337f28d Enforce package name length limits in PackagePolicy setters.
+MISSING: 0425af96e568 Skip serialization of huge vibration effects in NotificationChannel
+MISSING: 3893596933d7 Block adding toast windows to non-empty tokens.
+MISSING: 47ee871a2c26 Validate package ID range in LoadedArsc
+MISSING: badeb01005fc Check caller for clearDeveloperVerificationExperiment
+MISSING: b37bfa71978a Check caller for addDeveloperVerificationExperiment
+MISSING: a5b07a84aa17 Compare period character as well during wildcard matching
+MISSING: 1e1feb46c899 Map animation delegate to the transition instead of plumbing it
+MISSING: f5ad102f7d9d Prevent configAtEnd dispatching to finishing AR
+MISSING: 3e004709f768 Validate max proxy string length for proxySpec and exclusionList using PolicySizeVerifier.
+MISSING: 3ab099d21f51 RESTRICT AUTOMERGE Require to be bound with non-pinned visible window
+MISSING: de675fea004a Make sure we properly validate the XML attr size
+MISSING: 6db300a1b557 On face auth success, verify the face auth'd user is the current user
+MISSING: a5b1a12c6c2c Add StorageManager.convert() check earlier in the stack so the command fails early instead of crashing system later.
+MISSING: 942bc27603ab Quick fix for WCLS security vulnerability.
+MISSING: 5de9a310dbdd Validate ResStringPool_header.styleCount
+MISSING: 1d7806bd1844 Don't allow hiding critical apps.
+MISSING: e797c701057b Allow default per-thread and per-process OnHeaderDecodedListeners
+MISSING: faca54c7ef74 Remove multi user flag reference
+MISSING: 771a6e02db61 Fix Tapjacking caused by touch slipping out of letterbox
+MISSING: 0b4a6fe65fa4 Checking userId in com.android.server.pm.ComputerEngine#resolveContentProvider
+MISSING: 9cdb6c222c92 Hide non system overlay window immediately if it is animating exit
+MISSING: 71bb580416d6 Apply visibility policy to window state surface
+MISSING: 5ba5fb4a4a07 Start a new transition to ignore split-enter from a malformed transition
+MISSING: 9815a601491a Fix bugs caused on package update events
+MISSING: 456e9d1c550a Catch uncaught IllegalStateException
+MISSING: fef79c4fc1f4 ColorDisplayService: initialize global saturation matrix before rebuild
+MISSING: 1e3091ae449d core: allow low_ram devices to enable multiwindow
+MISSING: 32e2fa2ea29a Add Central Kurdish locale
+FOUND: af32af1f296d Automatic translation import
+MISSING: 71942aabb32e PhoneWindowManager: Add partial screenshot action
+MISSING: 8151f8ffe6c1 fixup! SystemUI: Clock position customization
+MISSING: f7107a350825 SystemUI: Match circle battery style colors with landscape icon
+FOUND: 23ff226493a9 Automatic translation import
+MISSING: 4cd35f21a46a PhoneWindowManager: Prevent NPE with voice search action
+FOUND: ea9246811387 PhoneWindowManager: Allow to take screenshot using HW keys

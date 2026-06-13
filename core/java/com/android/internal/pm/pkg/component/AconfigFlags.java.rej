@@ -1,0 +1,10 @@
+--- core/java/com/android/internal/pm/pkg/component/AconfigFlags.java
++++ core/java/com/android/internal/pm/pkg/component/AconfigFlags.java
+@@ -264,7 +264,6 @@ private Boolean getFlagValueFromNewStorage(String flagPackageAndName) {
+             try {
+                 return AconfigPackage.load(p);
+             } catch (Exception e) {
+-                Slog.e(LOG_TAG, "Failed to load aconfig package " + p, e);
+                 return null;
+             }
+         });

@@ -1,0 +1,30 @@
+From 8fda7c4fec56b9bb2801aa1d889cf0bd85bdb4a8 Mon Sep 17 00:00:00 2001
+From: Satyam Kumar Singh <quic_satysing@quicinc.com>
+Date: Sun, 19 Oct 2025 04:03:50 +0800
+Subject: [PATCH] view: Disable VRR feature to meet power expectations
+
+VRR wakes up the idle device after 750ms timeout. This bounds Display
+and GPU to wake up as well, leading to higher power consumption during
+idling. Disable VRR to avoid this extra wake up call as it can cause
+power regression.
+Google bug: 409971466
+
+Change-Id: Ie2027e8ab08013e1ae976e7189bcb4cf4323a4ca
+CRs-Fixed: 4109766
+---
+ core/java/android/view/ViewRootImpl.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/android/view/ViewRootImpl.java b/core/java/android/view/ViewRootImpl.java
+index fa1c190eb4e2b..b9d9d4bb69bf9 100644
+--- a/core/java/android/view/ViewRootImpl.java
++++ b/core/java/android/view/ViewRootImpl.java
+@@ -1266,7 +1266,7 @@ public void onCornerRadiiChanged(float[] cornerRadii) {
+ 
+     private static boolean sToolkitEnableInvalidateCheckThreadFlagValue =
+             Flags.enableInvalidateCheckThread();
+-    private static final boolean sEnableVrr = ViewProperties.vrr_enabled().orElse(true);
++    private static final boolean sEnableVrr = false;
+     private static final boolean sToolkitInitialTouchBoostFlagValue = toolkitInitialTouchBoost();
+     private static boolean sToolkitFrameRateDebugFlagValue =  toolkitFrameRateDebug();
+ 

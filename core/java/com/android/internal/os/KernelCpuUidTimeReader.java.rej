@@ -1,0 +1,20 @@
+--- core/java/com/android/internal/os/KernelCpuUidTimeReader.java
++++ core/java/com/android/internal/os/KernelCpuUidTimeReader.java
+@@ -452,7 +452,7 @@ private void processUidDelta(@Nullable Callback<long[]> cb) {
+                 // Unit is 10ms.
+                 mDeltaTimes[i] = mCurTimes[i] - lastTimes[i];
+                 if (mDeltaTimes[i] < 0) {
+-                    Slog.e(mTag, "Negative delta from freq time for uid: " + uid
++                    if (DEBUG) Slog.e(mTag, "Negative delta from freq time for uid: " + uid
+                             + ", delta: " + mDeltaTimes[i]);
+                     return;
+                 }
+@@ -628,7 +628,7 @@ private void processUidDelta(@Nullable Callback<Long> cb) {
+                         cb.onUidCpuTime(uid, delta);
+                     }
+                 } else if (delta < 0) {
+-                    Slog.e(mTag, "Negative delta from active time for uid: " + uid
++                    if (DEBUG) Slog.e(mTag, "Negative delta from active time for uid: " + uid
+                             + ", delta: " + delta);
+                 }
+             }

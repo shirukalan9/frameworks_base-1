@@ -1,0 +1,11 @@
+--- telephony/java/android/telephony/data/DataServiceCallback.java
++++ telephony/java/android/telephony/data/DataServiceCallback.java
+@@ -42,7 +42,7 @@ public class DataServiceCallback {
+ 
+     private static final String TAG = DataServiceCallback.class.getSimpleName();
+ 
+-    private static final boolean DBG = true;
++    private static final boolean DBG = false;
+ 
+     /**
+      * Result of data requests

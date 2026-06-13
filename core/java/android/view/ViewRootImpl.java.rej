@@ -1,0 +1,11 @@
+--- core/java/android/view/ViewRootImpl.java
++++ core/java/android/view/ViewRootImpl.java
+@@ -1266,7 +1266,7 @@ public void onCornerRadiiChanged(float[] cornerRadii) {
+ 
+     private static boolean sToolkitEnableInvalidateCheckThreadFlagValue =
+             Flags.enableInvalidateCheckThread();
+-    private static final boolean sEnableVrr = ViewProperties.vrr_enabled().orElse(true);
++    private static final boolean sEnableVrr = false;
+     private static final boolean sToolkitInitialTouchBoostFlagValue = toolkitInitialTouchBoost();
+     private static boolean sToolkitFrameRateDebugFlagValue =  toolkitFrameRateDebug();
+ 

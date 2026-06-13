@@ -1,0 +1,27 @@
+From db53a5da8e91cdb628bc962b2754226254798fda Mon Sep 17 00:00:00 2001
+From: jianzhou <jianzhou@codeaurora.org>
+Date: Wed, 13 Nov 2024 16:06:20 +0800
+Subject: [PATCH] view: Add null check for dispatch touch view
+
+during monkey test, sometimes in low memory status, the view will
+be null when dispatching the touch event. Add null check to avoid
+this crash.
+
+Change-Id: I5b04cfbc6b1c5c46a1da7d1133d8a7e1b9af556f
+---
+ core/java/android/view/ViewGroup.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/android/view/ViewGroup.java b/core/java/android/view/ViewGroup.java
+index 071a4bd1a4b56..26d940f7d94e5 100644
+--- a/core/java/android/view/ViewGroup.java
++++ b/core/java/android/view/ViewGroup.java
+@@ -2918,7 +2918,7 @@ private void resetTouchState() {
+      * Returns true if the flag was previously set.
+      */
+     private static boolean resetCancelNextUpFlag(@NonNull View view) {
+-        if ((view.mPrivateFlags & PFLAG_CANCEL_NEXT_UP_EVENT) != 0) {
++        if (view != null && (view.mPrivateFlags & PFLAG_CANCEL_NEXT_UP_EVENT) != 0) {
+             view.mPrivateFlags &= ~PFLAG_CANCEL_NEXT_UP_EVENT;
+             return true;
+         }
