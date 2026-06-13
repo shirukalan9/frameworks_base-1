@@ -37,6 +37,7 @@ cc_test_library {
         "stats_scorer.cpp",
     ],
     cflags: [
+        "-g0",
         "-Wall",
         "-Wextra",
         "-Werror",

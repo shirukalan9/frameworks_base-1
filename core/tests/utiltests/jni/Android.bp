@@ -32,5 +32,6 @@ cc_library_shared {
         "registration.cpp",
         "android_util_MemoryIntArrayTest.cpp",
     ],
-    cflags: ["-Werror"],
+    cflags: [
+        "-g0","-Werror"],
 }

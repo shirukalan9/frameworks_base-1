@@ -26,6 +26,7 @@ cc_library_shared {
     name: "libfilterfw",
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
     ],
@@ -67,6 +68,7 @@ cc_library_static {
     local_include_dirs: ["native"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wunused",

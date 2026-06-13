@@ -19,6 +19,7 @@ cc_binary_host {
     srcs: ["Main.cpp"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-mismatched-tags",
@@ -44,6 +45,7 @@ cc_binary_host {
     name: "pbkdf2gen",
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-mismatched-tags",

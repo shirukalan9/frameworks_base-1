@@ -47,6 +47,7 @@ cc_library_shared {
     include_dirs: ["frameworks/rs"],
 
     cflags: [
+        "-g0",
         "-Wno-unused-parameter",
         "-Wunused",
         "-Wunreachable-code",

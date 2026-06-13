@@ -38,6 +38,7 @@ cc_test {
         "libbase",
     ],
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
     ],

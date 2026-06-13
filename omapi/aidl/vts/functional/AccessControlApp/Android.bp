@@ -42,6 +42,7 @@ cc_test {
         "android.se.omapi-V1-ndk",
     ],
     cflags: [
+        "-g0",
         "-O0",
         "-g",
         "-Wall",

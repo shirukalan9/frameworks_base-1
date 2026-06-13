@@ -34,6 +34,7 @@ cc_defaults {
     name: "aapt2_defaults",
     cpp_std: "gnu++2b",
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-unused-parameter",
@@ -48,7 +49,8 @@ cc_defaults {
         windows: {
             compile_multilib: "64",
             enabled: true,
-            cflags: ["-Wno-maybe-uninitialized"],
+            cflags: [
+        "-g0","-Wno-maybe-uninitialized"],
             ldflags: ["-static"],
             host_ldlibs: [
                 // Required by stack tracing code bundled with protobuf
@@ -56,7 +58,8 @@ cc_defaults {
             ],
         },
         darwin: {
-            cflags: ["-D_DARWIN_UNLIMITED_STREAMS"],
+            cflags: [
+        "-g0","-D_DARWIN_UNLIMITED_STREAMS"],
             host_ldlibs: [
                 // Required by protobuf
                 "-framework CoreFoundation",

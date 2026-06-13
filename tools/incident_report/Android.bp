@@ -40,5 +40,6 @@ cc_binary_host {
         "libprotobuf-cpp-full",
     ],
 
-    cflags: ["-Wall", "-Werror"],
+    cflags: [
+        "-g0","-Wall", "-Werror"],
 }

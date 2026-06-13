@@ -29,6 +29,7 @@ package {
 cc_binary_host {
     name: "incident-section-gen",
     cflags: [
+        "-g0",
         "-g",
         "-O0",
         "-Wall",

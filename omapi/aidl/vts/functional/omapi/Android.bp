@@ -47,6 +47,7 @@ cc_test {
         ":omapi_uuid_map_config",
     ],
     cflags: [
+        "-g0",
         "-O0",
         "-g",
         "-Wall",

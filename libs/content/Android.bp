@@ -42,6 +42,7 @@ cc_library_shared {
     export_include_dirs: ["include"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wunused",

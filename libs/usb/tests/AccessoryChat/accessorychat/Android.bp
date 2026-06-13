@@ -13,6 +13,7 @@ cc_binary {
 
     srcs: ["accessorychat.c"],
     cflags: [
+        "-g0",
         "-Werror",
         "-Wno-unused-parameter",
     ],
@@ -30,7 +31,8 @@ cc_binary {
                 "libcutils",
             ],
 
-            cflags: ["-O0"],
+            cflags: [
+        "-g0","-O0"],
         },
         darwin: {
             enabled: false,

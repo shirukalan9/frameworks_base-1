@@ -12,6 +12,7 @@ cc_library_shared {
     host_supported: true,
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-unused-parameter",

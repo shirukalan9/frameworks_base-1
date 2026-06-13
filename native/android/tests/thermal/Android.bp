@@ -55,6 +55,7 @@ cc_test {
     ],
 
     cflags: [
+        "-g0",
         "-Werror",
         "-Wall",
     ],

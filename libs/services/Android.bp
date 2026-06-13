@@ -50,6 +50,7 @@ cc_library_shared {
     export_header_lib_headers: ["libbase_headers"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wunused",

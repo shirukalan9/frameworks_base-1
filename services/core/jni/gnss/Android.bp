@@ -12,6 +12,7 @@ cc_library_shared {
     defaults: ["libservices.core-gnss-libs"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-unused-parameter",

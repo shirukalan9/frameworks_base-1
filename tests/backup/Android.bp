@@ -27,6 +27,7 @@ cc_binary {
     srcs: ["backup_helper_test.cpp"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
     ],

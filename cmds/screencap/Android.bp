@@ -11,6 +11,7 @@ cc_defaults {
     name: "screencap_defaults",
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wunreachable-code",

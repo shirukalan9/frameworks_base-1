@@ -40,6 +40,7 @@ cc_test_library {
     shared_libs: ["liblog"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Wextra",
         "-Werror",

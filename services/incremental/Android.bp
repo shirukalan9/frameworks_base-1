@@ -50,6 +50,7 @@ cc_defaults {
     header_libs: ["jni_headers"],
     local_include_dirs: ["include/"],
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wextra",

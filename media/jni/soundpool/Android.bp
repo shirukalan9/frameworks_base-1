@@ -76,6 +76,7 @@ cc_defaults {
     // https://clang.llvm.org/docs/UsersManual.html#command-line-options
     // https://clang.llvm.org/docs/DiagnosticsReference.html
     cflags: [
+        "-g0",
         "-Wall",
         "-Wdeprecated",
         "-Werror",
@@ -139,6 +140,7 @@ cc_library_shared {
     ],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-error=deprecated-declarations",

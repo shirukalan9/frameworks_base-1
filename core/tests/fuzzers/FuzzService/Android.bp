@@ -23,6 +23,7 @@ cc_library_shared {
         "libbinder_random_parcel",
     ],
     cflags: [
+        "-g0",
         "-Wno-unused-parameter",
     ],
 }

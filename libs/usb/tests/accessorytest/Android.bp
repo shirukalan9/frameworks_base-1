@@ -24,6 +24,7 @@ cc_binary_host {
         "libtinyalsa",
     ],
     cflags: [
+        "-g0",
         "-O0",
         "-Wno-unused-parameter",
         "-Werror",

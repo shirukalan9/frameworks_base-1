@@ -31,7 +31,8 @@ cc_library_shared {
 
     srcs: ["loader.cpp"],
 
-    cflags: ["-Werror"],
+    cflags: [
+        "-g0","-Werror"],
 
     header_libs: ["jni_headers"],
 

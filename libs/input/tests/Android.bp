@@ -63,6 +63,7 @@ cc_test {
         "frameworks/base/libs",
     ],
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wextra",

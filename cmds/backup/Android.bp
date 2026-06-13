@@ -29,6 +29,7 @@ cc_binary {
     ],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wunused",

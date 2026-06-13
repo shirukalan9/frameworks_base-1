@@ -18,6 +18,7 @@ cc_binary_host {
     srcs: ["Main.cpp"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wextra",

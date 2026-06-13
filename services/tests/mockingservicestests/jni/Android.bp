@@ -13,6 +13,7 @@ cc_library_shared {
     defaults: ["android.hardware.graphics.common-ndk_shared"],
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-unused-parameter",

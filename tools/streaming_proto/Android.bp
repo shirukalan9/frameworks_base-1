@@ -35,6 +35,7 @@ cc_defaults {
         "string_utils.cpp",
     ],
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
     ],
@@ -51,10 +52,12 @@ cc_library_host_static {
     defaults: ["protoc-gen-stream-defaults"],
     target: {
         darwin: {
-            cflags: ["-D_DARWIN_UNLIMITED_STREAMS"],
+            cflags: [
+        "-g0","-D_DARWIN_UNLIMITED_STREAMS"],
         },
     },
     cflags: [
+        "-g0",
         "-Wno-format-y2k",
         "-DSTATIC_ANDROIDFW_FOR_TOOLS",
     ],

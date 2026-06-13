@@ -30,6 +30,7 @@ cc_test_library {
     sdk_version: "16",
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
     ],

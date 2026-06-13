@@ -32,6 +32,7 @@ ndk_library {
 cc_defaults {
     name: "libandroid_defaults",
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wextra",
@@ -157,6 +158,7 @@ cc_library_shared {
 cc_library_shared {
     name: "lib-platform-compat-native-api",
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-missing-field-initializers",
@@ -189,6 +191,7 @@ filegroup {
 cc_library_shared {
     name: "lib-camera-compatibility-info-api",
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-missing-field-initializers",

@@ -11,6 +11,7 @@ cc_library_shared {
     name: "libalarm_jni",
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-unused-parameter",

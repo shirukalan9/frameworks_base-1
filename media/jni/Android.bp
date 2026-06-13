@@ -129,6 +129,7 @@ cc_library_shared {
     ],
 
     cflags: [
+        "-g0",
         "-O3",
         "-Wall",
         "-Werror",
@@ -191,6 +192,7 @@ cc_library_shared {
     export_include_dirs: ["."],
 
     cflags: [
+        "-g0",
         "-O3",
         "-Wall",
         "-Werror",

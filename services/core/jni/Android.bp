@@ -12,6 +12,7 @@ cc_library_static {
     defaults: ["libservices.core-libs"],
 
     cflags: [
+        "-g0",
         "-O3",
         "-Wall",
         "-Werror",

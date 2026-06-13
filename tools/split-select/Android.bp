@@ -32,6 +32,7 @@ cc_defaults {
     name: "split-select_defaults",
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
     ],
@@ -78,7 +79,8 @@ cc_library_host_static {
         "SplitDescription.cpp",
         "SplitSelector.cpp",
     ],
-    cflags: ["-D_DARWIN_UNLIMITED_STREAMS"],
+    cflags: [
+        "-g0","-D_DARWIN_UNLIMITED_STREAMS"],
 
 }
 

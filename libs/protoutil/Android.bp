@@ -25,6 +25,7 @@ cc_defaults {
     name: "libprotoutil_defaults",
 
     cflags: [
+        "-g0",
         "-Wall",
         "-Werror",
         "-Wno-missing-field-initializers",
