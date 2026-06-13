@@ -129,6 +129,7 @@ cc_library_shared {
     ],
 
     cflags: [
+        "-O3",
         "-Wall",
         "-Werror",
         "-Wno-error=deprecated-declarations",
@@ -190,6 +191,7 @@ cc_library_shared {
     export_include_dirs: ["."],
 
     cflags: [
+        "-O3",
         "-Wall",
         "-Werror",
         "-Wno-error=deprecated-declarations",

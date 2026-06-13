@@ -12,6 +12,7 @@ cc_library_static {
     defaults: ["libservices.core-libs"],
 
     cflags: [
+        "-O3",
         "-Wall",
         "-Werror",
         "-Werror=reorder-init-list",
