@@ -36,7 +36,7 @@ android_library {
         "jsr330",
     ],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     java_version: "1.8",
     sdk_version: "current",
     min_sdk_version: "current",

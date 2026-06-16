@@ -451,7 +451,7 @@ java_defaults {
         "keepanno-annotations",
     ],
     kotlincflags: [
-        "-g0",
+        
         "-Xjvm-default=all",
         "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         "-P plugin:androidx.compose.compiler.plugins.kotlin:sourceInformation=true",
@@ -873,7 +873,7 @@ android_library {
         "keepanno-annotations",
     ],
     kotlincflags: [
-        "-g0",
+        
         "-Xjvm-default=all",
         // TODO(b/352363800): Why do we need this?
         "-J-Xmx8192M",
@@ -928,7 +928,7 @@ android_app {
     privileged: true,
     resource_dirs: [],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     optimize: {
         optimize: false,
         shrink_resources: false,
@@ -1134,7 +1134,7 @@ android_app {
     privileged: true,
 
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 
     dxflags: ["--multi-dex"],
     optimize: {

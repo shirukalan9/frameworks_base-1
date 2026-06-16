@@ -17,7 +17,7 @@ android_library {
         "androidx.fragment_fragment",
     ],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     optimize: {
         proguard_flags_files: ["proguard.pgcfg"],
     },

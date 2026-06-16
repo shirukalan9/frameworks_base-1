@@ -27,7 +27,7 @@ android_app {
     name: "MotionPrediction",
     srcs: ["**/*.kt"],
     kotlincflags: [
-        "-g0",
+        
         "-Werror",
     ],
     sdk_version: "current",

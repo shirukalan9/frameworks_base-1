@@ -90,7 +90,7 @@ android_library {
     min_sdk_version: "current",
     plugins: ["dagger2-compiler"],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 }
 
 java_library {

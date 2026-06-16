@@ -39,7 +39,7 @@ android_test {
     ],
     associates: ["SpaLib"],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     sdk_version: "current",
     min_sdk_version: "31",
 }

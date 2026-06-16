@@ -20,7 +20,7 @@ android_library {
     sdk_version: "system_current",
     min_sdk_version: "23",
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 }
 
 java_library {

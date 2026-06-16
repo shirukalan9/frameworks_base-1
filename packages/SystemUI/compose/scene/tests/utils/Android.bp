@@ -38,6 +38,6 @@ android_library {
     ],
 
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     use_resource_processor: true,
 }

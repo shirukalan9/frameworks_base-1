@@ -25,7 +25,7 @@ android_app {
     certificate: "platform",
     privileged: true,
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     asset_dirs: ["customization/assets"],
     resource_dirs: ["screenshot/customization/res"],
     use_resource_processor: true,

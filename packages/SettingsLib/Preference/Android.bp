@@ -35,5 +35,5 @@ android_library {
         "androidx.preference_preference",
     ],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 }

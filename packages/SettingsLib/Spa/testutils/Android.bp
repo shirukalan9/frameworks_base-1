@@ -34,7 +34,7 @@ android_library {
         "truth",
     ],
     kotlincflags: [
-        "-g0",
+        
         "-Xjvm-default=all",
     ],
     min_sdk_version: "31",

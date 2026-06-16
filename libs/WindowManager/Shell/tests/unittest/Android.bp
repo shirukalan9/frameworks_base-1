@@ -81,7 +81,7 @@ android_test {
     ],
 
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 
     plugins: ["dagger2-compiler"],
 

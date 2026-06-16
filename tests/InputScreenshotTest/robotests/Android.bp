@@ -39,7 +39,7 @@ android_app {
     privileged: true,
     resource_dirs: [],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 
     plugins: ["dagger2-compiler"],
     use_resource_processor: true,

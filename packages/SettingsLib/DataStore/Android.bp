@@ -19,5 +19,5 @@ android_library {
         "guava",
     ],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 }

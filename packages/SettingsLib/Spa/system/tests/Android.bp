@@ -35,7 +35,7 @@ android_test {
     ],
     associates: ["Spa-system"],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     sdk_version: "system_current",
     min_sdk_version: "33",
 }

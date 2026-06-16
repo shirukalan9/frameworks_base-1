@@ -24,7 +24,7 @@ android_library {
     libs: ["SystemUIPluginLib"],
     static_libs: ["SystemUIClocks-CommonLib"],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     min_sdk_version: "current",
     system_ext_specific: true,
     platform_apis: true,

@@ -45,5 +45,5 @@ android_test {
         "platform-screenshot-diff-core",
     ],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 }

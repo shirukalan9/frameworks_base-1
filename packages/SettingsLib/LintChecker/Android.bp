@@ -30,5 +30,5 @@ java_library_host {
         "lint_api",
     ],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 }

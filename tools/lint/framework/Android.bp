@@ -33,7 +33,7 @@ java_library_host {
         "AndroidCommonLint",
     ],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
 }
 
 java_test_host {

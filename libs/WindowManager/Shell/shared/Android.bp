@@ -63,7 +63,7 @@ android_library {
     ],
     kotlin_plugins: ["kotlin-parcelize-compiler-plugin"],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     use_resource_processor: true,
 }
 

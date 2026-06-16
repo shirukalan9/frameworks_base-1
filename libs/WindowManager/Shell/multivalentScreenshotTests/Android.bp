@@ -50,7 +50,7 @@ android_test {
         "libstaticjvmtiagent",
     ],
     kotlincflags: [
-        "-g0","-Xjvm-default=all"],
+        "-Xjvm-default=all"],
     optimize: {
         enabled: false,
     },

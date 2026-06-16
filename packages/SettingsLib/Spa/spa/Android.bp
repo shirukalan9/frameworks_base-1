@@ -38,7 +38,7 @@ android_library {
         "lottie_compose",
     ],
     kotlincflags: [
-        "-g0",
+        
         "-Xjvm-default=all",
     ],
     sdk_version: "current",

@@ -28,7 +28,7 @@ android_library {
         "Spa-search-protos-lite",
     ],
     kotlincflags: [
-        "-g0",
+        
         "-Xjvm-default=all",
     ],
     sdk_version: "system_current",
